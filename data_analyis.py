@@ -40,6 +40,10 @@ def analyze_data(data):
 def main():
     file_path = input("Enter the path to the CSV file: ")
     data = load_data(file_path)
+
+    # label encode the class column
+    data["Class"] = data["Class"].astype("category").cat.codes
+
     analyze_data(data)
 
 if __name__ == "__main__":
