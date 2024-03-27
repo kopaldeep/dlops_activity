@@ -37,9 +37,17 @@ def analyze_data(data):
         plt.ylabel('Count')
         plt.show()
 
+### Encoding the categorical values 
+def Encode_data(data):
+    data['Class'] = data['Class'].astype('category').cat.codes
+    print(data['Class'])
+    
 def main():
-    file_path = input("Enter the path to the CSV file: ")
+    file_path = '/home/maverick/DL_ops_GitHub/dlops_activity/DryBeanDataset/Dry_Bean_Dataset.xlsx'
     data = load_data(file_path)
+    print(data)
+    Encode_data(data)
+    print(data)
     analyze_data(data)
 
 if __name__ == "__main__":
