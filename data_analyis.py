@@ -38,9 +38,12 @@ def analyze_data(data):
         plt.show()
 
 def main():
-    file_path = input("Enter the path to the CSV file: ")
+    file_path = "/home/shripad/DL_ops_Mtech/dlops_activity/DryBeanDataset/Dry_Bean_Dataset.xlsx"
     data = load_data(file_path)
-    analyze_data(data)
+    print(data)
+    data["Class"] = data['Class'].astype('category').cat.codes
+    print(data)
+   # analyze_data(data)
 
 if __name__ == "__main__":
     main()
