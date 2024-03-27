@@ -40,7 +40,15 @@ def analyze_data(data):
 def main():
     file_path = input("Enter the path to the CSV file: ")
     data = load_data(file_path)
+    missing_values(data)
     analyze_data(data)
+
+def missing_values(data) :
+    columns = data.columns
+
+    for col in columns :
+        if data[col].isnull().sum() != data.shape[0] :
+            print(f"Null values found in column {col}")
 
 if __name__ == "__main__":
     main()
