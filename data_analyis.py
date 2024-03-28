@@ -22,8 +22,6 @@ def analyze_data(data):
 
         print("\nMissing Values:")
         missing_values = data.isnull()
-        print(missing_values.sum())
-        
         if missing_values.sum().sum() == 0:
             print("No missing values found.")
         else:
@@ -31,21 +29,21 @@ def analyze_data(data):
             print(missing_indices)
 
         # Plot histograms for numeric columns
-        # print("Histograms:")
-        # for col in data.select_dtypes(include=['int', 'float']):
-        #     data[col].plot(kind='hist', bins=10)
-        #     plt.title(col)
-        #     plt.xlabel(col)
-        #     plt.ylabel('Frequency')
-        #     plt.show()
+        print("Histograms:")
+        for col in data.select_dtypes(include=['int', 'float']):
+            data[col].plot(kind='hist', bins=10)
+            plt.title(col)
+            plt.xlabel(col)
+            plt.ylabel('Frequency')
+            plt.show()
         
-        # # Plot bar plot for the class label (string type)
-        # class_label_counts = data['Class'].value_counts()
-        # class_label_counts.plot(kind='bar')
-        # plt.title('Class Label Distribution')
-        # plt.xlabel('Class Label')
-        # plt.ylabel('Count')
-        # plt.show()
+        # Plot bar plot for the class label (string type)
+        class_label_counts = data['Class'].value_counts()
+        class_label_counts.plot(kind='bar')
+        plt.title('Class Label Distribution')
+        plt.xlabel('Class Label')
+        plt.ylabel('Count')
+        plt.show()
 
 def main():
     # file_path = input("Enter the path to the CSV file: ")
