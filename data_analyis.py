@@ -20,25 +20,36 @@ def analyze_data(data):
         print("Summary Statistics:")
         print(data.describe())
 
-        # Plot histograms for numeric columns
-        print("Histograms:")
-        for col in data.select_dtypes(include=['int', 'float']):
-            data[col].plot(kind='hist', bins=10)
-            plt.title(col)
-            plt.xlabel(col)
-            plt.ylabel('Frequency')
-            plt.show()
+        print("\nMissing Values:")
+        missing_values = data.isnull()
+        print(missing_values.sum())
         
-        # Plot bar plot for the class label (string type)
-        class_label_counts = data['Class'].value_counts()
-        class_label_counts.plot(kind='bar')
-        plt.title('Class Label Distribution')
-        plt.xlabel('Class Label')
-        plt.ylabel('Count')
-        plt.show()
+        if missing_values.sum().sum() == 0:
+            print("No missing values found.")
+        else:
+            missing_indices = missing_values.stack()[missing_values.stack()].index
+            print(missing_indices)
+
+        # Plot histograms for numeric columns
+        # print("Histograms:")
+        # for col in data.select_dtypes(include=['int', 'float']):
+        #     data[col].plot(kind='hist', bins=10)
+        #     plt.title(col)
+        #     plt.xlabel(col)
+        #     plt.ylabel('Frequency')
+        #     plt.show()
+        
+        # # Plot bar plot for the class label (string type)
+        # class_label_counts = data['Class'].value_counts()
+        # class_label_counts.plot(kind='bar')
+        # plt.title('Class Label Distribution')
+        # plt.xlabel('Class Label')
+        # plt.ylabel('Count')
+        # plt.show()
 
 def main():
-    file_path = input("Enter the path to the CSV file: ")
+    # file_path = input("Enter the path to the CSV file: ")
+    file_path="DryBeanDataset/Dry_Bean_Dataset.xlsx"
     data = load_data(file_path)
     analyze_data(data)
 
