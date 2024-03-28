@@ -37,9 +37,19 @@ def analyze_data(data):
         plt.ylabel('Count')
         plt.show()
 
+def missing_values(data):
+
+    df = data.where(pd.notna(data), None)
+    # Get columns with missing values
+    columns_with_missing_values = df.columns[df.isnull().any()].tolist()
+
+    # Print columns with missing values
+    print(f"Columns with missing values: {columns_with_missing_values}")
+
 def main():
     file_path = input("Enter the path to the CSV file: ")
     data = load_data(file_path)
+    missing_values(data)
     analyze_data(data)
 
 if __name__ == "__main__":
