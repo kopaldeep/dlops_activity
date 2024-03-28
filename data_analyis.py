@@ -1,6 +1,5 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-
 def load_data(file_path):
     """Load data from a CSV file."""
     try:
@@ -12,14 +11,12 @@ def load_data(file_path):
     except Exception as e:
         print(f"An error occurred: {e}")
         return None
-
 def analyze_data(data):
     """Perform basic data analysis."""
     if data is not None:
         # Display summary statistics
         print("Summary Statistics:")
         print(data.describe())
-
         # Plot histograms for numeric columns
         print("Histograms:")
         for col in data.select_dtypes(include=['int', 'float']):
@@ -36,10 +33,13 @@ def analyze_data(data):
         plt.xlabel('Class Label')
         plt.ylabel('Count')
         plt.show()
-
 def main():
-    file_path = input("Enter the path to the CSV file: ")
+    file_path = 'E:\DLOps\dlops_activity\DryBeanDataset\Dry_Bean_Dataset.xlsx'
     data = load_data(file_path)
+
+    # label encode the class column
+    data["Class"] = data["Class"].astype("category").cat.codes
+
     analyze_data(data)
 
 if __name__ == "__main__":
