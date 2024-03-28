@@ -46,8 +46,7 @@ def analyze_data(data):
         plt.show()
 
 def main():
-    # file_path = input("Enter the path to the CSV file: ")
-    file_path="DryBeanDataset/Dry_Bean_Dataset.xlsx"
+    file_path = input("Enter the path to the CSV file: ")
     data = load_data(file_path)
     analyze_data(data)
 
