@@ -1,7 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-
-### DLOps Activity 2
+from sklearn.preprocessing import LabelEncoder
 
 def load_data(file_path):
     """Load data from a CSV file."""
@@ -30,8 +29,14 @@ def analyze_data(data):
             plt.xlabel(col)
             plt.ylabel('Frequency')
             plt.show()
-        
-        # Plot bar plot for the class label (string type)
+
+        # Encode categorical values
+        label_encoder = LabelEncoder()
+        categorical_cols = data.select_dtypes(include=['object']).columns
+        for col in categorical_cols:
+            data[col] = label_encoder.fit_transform(data[col])
+
+        # Plot bar plot for the class label (after encoding)
         class_label_counts = data['Class'].value_counts()
         class_label_counts.plot(kind='bar')
         plt.title('Class Label Distribution')
