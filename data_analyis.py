@@ -34,7 +34,7 @@ def analyze_data(data):
         plt.ylabel('Count')
         plt.show()
 def main():
-    file_path = input("Enter the path to the CSV file: ")
+    file_path = 'E:\DLOps\dlops_activity\DryBeanDataset\Dry_Bean_Dataset.xlsx'
     data = load_data(file_path)
 
     # label encode the class column
