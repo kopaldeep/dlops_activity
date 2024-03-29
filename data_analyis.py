@@ -1,6 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-
+# A comment added here for making necessary changes
 def load_data(file_path):
     """Load data from a CSV file."""
     try:
