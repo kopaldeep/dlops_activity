@@ -19,7 +19,7 @@ def analyze_data(data):
         # Display summary statistics
         print("Summary Statistics:")
         print(data.describe())
-
+        print(data.isnull()) # B21AI018
         # Plot histograms for numeric columns
         print("Histograms:")
         for col in data.select_dtypes(include=['int', 'float']):
