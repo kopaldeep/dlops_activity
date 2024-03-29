@@ -37,10 +37,15 @@ def analyze_data(data):
         plt.ylabel('Count')
         plt.show()
 
+def find_missing_val(data):
+    missing_data = data.isna().sum()
+    print("There is no missing data",missing_data)
+
 def main():
     file_path = input("Enter the path to the CSV file: ")
     data = load_data(file_path)
     analyze_data(data)
+    find_missing_val(data)
 
 if __name__ == "__main__":
     main()
