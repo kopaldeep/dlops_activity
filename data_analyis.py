@@ -1,46 +1,54 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import LabelEncoder
 
-def load_data(file_path):
-    """Load data from a CSV file."""
+def load_data(abFilePath):
+    """Load data from an Excel file."""
     try:
-        data = pd.read_excel(file_path)
-        return data
+        abData = pd.read_excel(abFilePath)
+        return abData
     except FileNotFoundError:
         print("File not found. Please provide a valid file path.")
         return None
-    except Exception as e:
-        print(f"An error occurred: {e}")
+    except Exception as abError:
+        print(f"An error occurred: {abError}")
         return None
 
-def analyze_data(data):
+def analyze_data(abData):
     """Perform basic data analysis."""
-    if data is not None:
+    if abData is not None:
         # Display summary statistics
         print("Summary Statistics:")
-        print(data.describe())
+        print(abData.describe())
 
         # Plot histograms for numeric columns
         print("Histograms:")
-        for col in data.select_dtypes(include=['int', 'float']):
-            data[col].plot(kind='hist', bins=10)
-            plt.title(col)
-            plt.xlabel(col)
+        for abCol in abData.select_dtypes(include=['int64', 'float64']):
+            abData[abCol].plot(kind='hist', bins=10)
+            plt.title(abCol)
+            plt.xlabel(abCol)
             plt.ylabel('Frequency')
             plt.show()
         
-        # Plot bar plot for the class label (string type)
-        class_label_counts = data['Class'].value_counts()
-        class_label_counts.plot(kind='bar')
-        plt.title('Class Label Distribution')
-        plt.xlabel('Class Label')
-        plt.ylabel('Count')
-        plt.show()
+        # Encode categorical class labels
+        if 'Class' in abData.columns:
+            abLe = LabelEncoder()
+            abData['Class'] = abLe.fit_transform(abData['Class'])
+            
+            # Plot bar plot for the class label (numeric type)
+            abClassLabelCounts = abData['Class'].value_counts()
+            abClassLabelCounts.plot(kind='bar')
+            plt.title('Class Label Distribution')
+            plt.xlabel('Class Label')
+            plt.ylabel('Count')
+            plt.show()
+        else:
+            print("Class column not found.")
 
 def main():
-    file_path = input("Enter the path to the CSV file: ")
-    data = load_data(file_path)
-    analyze_data(data)
+    abFilePath = "DryBeanDataset/Dry_Bean_Dataset.xlsx"
+    abData = load_data(abFilePath)
+    analyze_data(abData)
 
 if __name__ == "__main__":
     main()
