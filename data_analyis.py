@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import LabelEncoder
 
 def load_data(file_path):
     """Load data from a CSV file."""
@@ -12,6 +13,13 @@ def load_data(file_path):
     except Exception as e:
         print(f"An error occurred: {e}")
         return None
+    
+def label_encode_data(data):
+    obj_cols=data.select_dtypes(include=['O']).columns
+    for col in obj_cols:
+        print(f'Categorical Encoding column: {col}, n_categories: {pd.unique(data[col]).__len__()}')
+        data[col]=LabelEncoder().fit_transform(data[col])
+    return data
 
 def analyze_data(data):
     """Perform basic data analysis."""
@@ -40,6 +48,7 @@ def analyze_data(data):
 def main():
     file_path = input("Enter the path to the CSV file: ")
     data = load_data(file_path)
+    data = label_encode_data(data)
     analyze_data(data)
 
 if __name__ == "__main__":
