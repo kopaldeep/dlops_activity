@@ -20,8 +20,16 @@ def analyze_data(data):
         print("Summary Statistics:")
         print(data.describe())
 
+        # Check for missing values
+        missing_values = data.isna().sum()
+        if missing_values.sum() > 0:
+            print("\nMissing Values:")
+            print(missing_values)
+        else:
+            print("\nNo missing values found.")
+
         # Plot histograms for numeric columns
-        print("Histograms:")
+        print("\nHistograms:")
         for col in data.select_dtypes(include=['int', 'float']):
             data[col].plot(kind='hist', bins=10)
             plt.title(col)
@@ -44,3 +52,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
