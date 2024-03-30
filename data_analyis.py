@@ -1,10 +1,13 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import LabelEncoder
 
 def load_data(file_path):
     """Load data from a CSV file."""
     try:
         data = pd.read_excel(file_path)
+        class_label_encoder = LabelEncoder()
+        data['Class'] = class_label_encoder.fit_transform(data['Class'])
         return data
     except FileNotFoundError:
         print("File not found. Please provide a valid file path.")
@@ -38,6 +41,7 @@ def analyze_data(data):
         plt.show()
 
 def main():
+    print("starting data analysis")
     file_path = input("Enter the path to the CSV file: ")
     data = load_data(file_path)
     analyze_data(data)
