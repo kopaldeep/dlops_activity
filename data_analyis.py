@@ -1,6 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-
+# A comment added here for making necessary changes
 def load_data(file_path):
     """Load data from a CSV file."""
     try:
@@ -19,6 +19,11 @@ def analyze_data(data):
         # Display summary statistics
         print("Summary Statistics:")
         print(data.describe())
+
+        # List missing values
+        missing_values = data.isnull().sum()
+        print("\nMissing values:")
+        print(missing_values)       
 
         # Plot histograms for numeric columns
         print("Histograms:")
