@@ -31,6 +31,7 @@ def analyze_data(data):
             for col in categorical_cols:
                 data[col] = data[col].astype('category').cat.codes
             print("Categorical Values Encoded.")
+            printf("done")
 
         # Plot histograms for numeric columns
         print("Histograms:")
