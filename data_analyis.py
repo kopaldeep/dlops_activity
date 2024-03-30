@@ -28,7 +28,9 @@ def analyze_data(data):
             plt.xlabel(col)
             plt.ylabel('Frequency')
             plt.show()
-        
+        # My Rollno is M22AIE214 and 214 % 2 == 0
+        missing_values = data.isnull().sum()
+        print(f"Missing values in columns: {missing_values}")
         # Plot bar plot for the class label (string type)
         class_label_counts = data['Class'].value_counts()
         class_label_counts.plot(kind='bar')
