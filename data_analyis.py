@@ -13,7 +13,7 @@ def load_data(file_path):
         print(f"An error occurred: {e}")
         return None
 
-def analyze_data(data):
+def analyze_data(data, roll_number):
     """Perform basic data analysis."""
     if data is not None:
         # Display summary statistics
@@ -37,10 +37,24 @@ def analyze_data(data):
         plt.ylabel('Count')
         plt.show()
 
+        if int(roll_number) % 2 == 0:
+            print("Missing Values:")
+            # Listing out missing values, if any
+            print(data.isnull().sum())  
+        elif int(roll_number) % 2 != 0: 
+            # Encoding categorical values if any
+            categorical_cols = data.select_dtypes(include=['object']).columns
+            if not categorical_cols.empty:
+                print("Encoding Categorical Values...")
+                data_encoded = pd.get_dummies(data, columns=categorical_cols)
+                print("Categorical values encoded successfully.")
+                return data_encoded
+
 def main():
     file_path = input("Enter the path to the CSV file: ")
+    roll_number = input("Enter roll number in numeric only.\nFor example M22AIE249 then please enter 249 only: ")
     data = load_data(file_path)
-    analyze_data(data)
+    analyze_data(data, roll_number)
 
 if __name__ == "__main__":
     main()
