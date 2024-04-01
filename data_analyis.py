@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import OneHotEncoder
 
 def load_data(file_path):
     """Load data from a CSV file."""
@@ -12,6 +13,17 @@ def load_data(file_path):
     except Exception as e:
         print(f"An error occurred: {e}")
         return None
+
+def encode_categorical(data):
+    if data is not None:
+        categorical_cols = data.select_dtypes(include=['object']).columns
+        if len(categorical_cols) > 0:
+            encoder = OneHotEncoder(sparse=False, drop='first')
+            encoded_cols = pd.DataFrame(encoder.fit_transform(data[categorical_cols]))
+            data = pd.concat([data.drop(columns=categorical_cols), encoded_cols], axis=1)
+        else:
+            print("No categorical columns found in the dataset.")
+    return data
 
 def analyze_data(data):
     """Perform basic data analysis."""
