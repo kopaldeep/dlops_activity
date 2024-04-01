@@ -36,6 +36,19 @@ def analyze_data(data):
         plt.xlabel('Class Label')
         plt.ylabel('Count')
         plt.show()
+        
+##Changes made by Preetam on 31st Mar'24  for Activity 2 to add the function for listing of missing values
+
+def list_missing_values(data):
+  for col in data:
+
+  # List missing values for specific columns
+    missing_values_specific = data[col].isna().sum()
+
+# Display missing values for specific columns
+    print("Missing values for specific columns:")
+    print(missing_values_specific)
+
 
 def main():
     file_path = input("Enter the path to the CSV file: ")
