@@ -37,6 +37,12 @@ def analyze_data(data):
         plt.ylabel('Count')
         plt.show()
 
+def list_missing_values(data):
+  for column_name in data:
+  # List missing values for specific columns
+    missing_values = data[column_name].isna().sum()
+    print(missing_values+" of missing values for "+column_name)
+
 def main():
     file_path = input("Enter the path to the CSV file: ")
     data = load_data(file_path)
