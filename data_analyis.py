@@ -2,16 +2,24 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 def load_data(file_path):
-    """Load data from a CSV file."""
-    try:
-        data = pd.read_excel(file_path)
-        return data
-    except FileNotFoundError:
-        print("File not found. Please provide a valid file path.")
-        return None
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        return None
+   """Load data from a CSV file and encode categorical variables."""
+   try:
+       data = pd.read_excel(file_path)
+      
+       # Select only the object (string) columns
+       categorical_columns = data.select_dtypes(include=['object']).columns
+      
+       # Perform one-hot encoding on the categorical columns
+       data_encoded = pd.get_dummies(data, columns=categorical_columns, drop_first=True)
+      
+       return data_encoded
+   except FileNotFoundError:
+       print("File not found. Please provide a valid file path.")
+       return None
+   except Exception as e:
+       print(f"An error occurred: {e}")
+       return None
+
 
 def analyze_data(data):
     """Perform basic data analysis."""
@@ -29,13 +37,16 @@ def analyze_data(data):
             plt.ylabel('Frequency')
             plt.show()
         
-        # Plot bar plot for the class label (string type)
-        class_label_counts = data['Class'].value_counts()
-        class_label_counts.plot(kind='bar')
-        plt.title('Class Label Distribution')
-        plt.xlabel('Class Label')
-        plt.ylabel('Count')
-        plt.show()
+        # # Plot bar plot for the class label (string type)
+        # class_label_counts = data['Class'].value_counts()
+        # class_label_counts.plot(kind='bar')
+        # plt.title('Class Label Distribution')
+        # plt.xlabel('Class Label')
+        # plt.ylabel('Count')
+        # plt.show()
+
+        print(data.head())
+        print(data.columns)
 
 def main():
     file_path = input("Enter the path to the CSV file: ")
