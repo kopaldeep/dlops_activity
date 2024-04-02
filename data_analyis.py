@@ -29,6 +29,9 @@ def analyze_data(data):
             plt.ylabel('Frequency')
             plt.show()
         
+        # Roll Number: M22AIE201
+        data['Class'] = data['Class'].astype('category').cat.codes
+
         # Plot bar plot for the class label (string type)
         class_label_counts = data['Class'].value_counts()
         class_label_counts.plot(kind='bar')
