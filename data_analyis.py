@@ -12,6 +12,10 @@ def load_data(file_path):
     except Exception as e:
         print(f"An error occurred: {e}")
         return None
+    
+def missing_value(df):
+    missing_value = df.isna()
+    return missing_value
 
 def analyze_data(data):
     """Perform basic data analysis."""
