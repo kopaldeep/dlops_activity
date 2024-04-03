@@ -20,6 +20,19 @@ def analyze_data(data):
         print("Summary Statistics:")
         print(data.describe())
 
+        # Encode categorical columns
+        categorical_cols = data.select_dtypes(include=['object']).columns
+        if len(categorical_cols) > 0:
+            print("Encoding categorical columns...")
+            encoded_data = pd.get_dummies(data, columns=categorical_cols, drop_first=True)
+            print("Encoded Data:")
+            print(encoded_data.head())
+            
+            # Update the 'data' DataFrame with the encoded data
+            data = encoded_data
+        else:
+            print("No categorical columns found.")
+
         # Plot histograms for numeric columns
         print("Histograms:")
         for col in data.select_dtypes(include=['int', 'float']):
@@ -30,12 +43,15 @@ def analyze_data(data):
             plt.show()
         
         # Plot bar plot for the class label (string type)
-        class_label_counts = data['Class'].value_counts()
-        class_label_counts.plot(kind='bar')
-        plt.title('Class Label Distribution')
-        plt.xlabel('Class Label')
-        plt.ylabel('Count')
-        plt.show()
+        if 'Class' in data.columns:
+            class_label_counts = data['Class'].value_counts()
+            class_label_counts.plot(kind='bar')
+            plt.title('Class Label Distribution')
+            plt.xlabel('Class Label')
+            plt.ylabel('Count')
+            plt.show()
+        else:
+            print("No 'Class' column found.")
 
 def main():
     file_path = input("Enter the path to the CSV file: ")
