@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
 def load_data(file_path):
     """Load data from a CSV file."""
     try:
@@ -13,6 +14,7 @@ def load_data(file_path):
         print(f"An error occurred: {e}")
         return None
 
+
 def analyze_data(data):
     """Perform basic data analysis."""
     if data is not None:
@@ -22,25 +24,34 @@ def analyze_data(data):
 
         # Plot histograms for numeric columns
         print("Histograms:")
-        for col in data.select_dtypes(include=['int', 'float']):
-            data[col].plot(kind='hist', bins=10)
+        for col in data.select_dtypes(include=["int", "float"]):
+            data[col].plot(kind="hist", bins=10)
             plt.title(col)
             plt.xlabel(col)
-            plt.ylabel('Frequency')
+            plt.ylabel("Frequency")
             plt.show()
-        
+
         # Plot bar plot for the class label (string type)
-        class_label_counts = data['Class'].value_counts()
-        class_label_counts.plot(kind='bar')
-        plt.title('Class Label Distribution')
-        plt.xlabel('Class Label')
-        plt.ylabel('Count')
+        class_label_counts = data["Class"].value_counts()
+        class_label_counts.plot(kind="bar")
+        plt.title("Class Label Distribution")
+        plt.xlabel("Class Label")
+        plt.ylabel("Count")
         plt.show()
+
+        categorical_columns = data.select_dtypes(include=["object"]).columns
+        if not categorical_columns.empty:
+            data_encoded = pd.get_dummies(data, columns=categorical_columns)
+            return data_encoded
+        else:
+            return data
+
 
 def main():
     file_path = input("Enter the path to the CSV file: ")
     data = load_data(file_path)
-    analyze_data(data)
+    data = analyze_data(data)
+
 
 if __name__ == "__main__":
     main()
