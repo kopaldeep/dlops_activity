@@ -20,6 +20,14 @@ def analyze_data(data):
         print("Summary Statistics:")
         print(data.describe())
 
+        # code added
+        # List out missing values
+        missing_values = data.isnull().sum()  
+        if not missing_values.empty:
+            print("\nMissing Values:")
+            print(missing_values)
+        
+
         # Plot histograms for numeric columns
         print("Histograms:")
         for col in data.select_dtypes(include=['int', 'float']):
