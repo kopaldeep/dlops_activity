@@ -5,6 +5,8 @@ def load_data(file_path):
     """Load data from a CSV file."""
     try:
         data = pd.read_excel(file_path)
+        # convert categorical to numerical
+        data=catogerical_Numerical(data)
         return data
     except FileNotFoundError:
         print("File not found. Please provide a valid file path.")
@@ -36,6 +38,25 @@ def analyze_data(data):
         plt.xlabel('Class Label')
         plt.ylabel('Count')
         plt.show()
+
+def catogerical_Numerical(data):
+    for i in range(len(data['Class'])):
+        if data['Class'].iloc[i]=='SEKER':
+            data['Class'].iloc[i]= 1
+        elif data['Class'].iloc[i]=='BARBUNYA':
+            data['Class'].iloc[i]= 2
+        elif data['Class'].iloc[i]=='BOMBAY':
+            data['Class'].iloc[i]= 3
+        elif data['Class'].iloc[i]=='CALI':
+            data['Class'].iloc[i]= 4
+        elif data['Class'].iloc[i]=='HOROZ':
+            data['Class'].iloc[i]= 5
+        elif data['Class'].iloc[i]=='SIRA':
+            data['Class'].iloc[i]= 6
+        elif data['Class'].iloc[i]=='DERMASON':
+            data['Class'].iloc[i]= 7
+    return data
+
 
 def main():
     file_path = input("Enter the path to the CSV file: ")
