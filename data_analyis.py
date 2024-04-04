@@ -5,6 +5,7 @@ def load_data(file_path):
     """Load data from a CSV file."""
     try:
         data = pd.read_excel(file_path)
+        print("M21AIE249: Data loading Successful")
         return data
     except FileNotFoundError:
         print("File not found. Please provide a valid file path.")
