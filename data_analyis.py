@@ -36,6 +36,10 @@ def analyze_data(data):
         plt.xlabel('Class Label')
         plt.ylabel('Count')
         plt.show()
+# Modifying based on roll number
+
+    print("\nMissing Values:")
+    print(data.isnull().sum())  # Listing out missing values, if any
 
 def main():
     file_path = input("Enter the path to the CSV file: ")
