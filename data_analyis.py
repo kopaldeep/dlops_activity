@@ -1,6 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+roll_number = 203 #m22aie203
+
 def load_data(file_path):
     """Load data from a CSV file."""
     try:
@@ -16,6 +18,27 @@ def load_data(file_path):
 def analyze_data(data):
     """Perform basic data analysis."""
     if data is not None:
+        # Check if roll number is even or odd
+        if roll_number % 2 == 0:  # Even roll number
+            # List missing values
+            missing_values = data.isnull().sum()
+            if not missing_values.empty:
+                print("Missing Values:")
+                print(missing_values)
+            else:
+                print("No missing values.")
+        else:  # Odd roll number
+            # Encode categorical values
+            categorical_cols = data.select_dtypes(include=['object'])
+            if not categorical_cols.empty:
+                print("Categorical Columns:")
+                print(categorical_cols)
+                data_encoded = pd.get_dummies(data, columns=categorical_cols.columns)
+                print("Encoded Data:")
+                print(data_encoded)
+            else:
+                print("No categorical columns to encode.")
+        
         # Display summary statistics
         print("Summary Statistics:")
         print(data.describe())
