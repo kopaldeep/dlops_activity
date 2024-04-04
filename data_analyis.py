@@ -5,6 +5,10 @@ def load_data(file_path):
     """Load data from a CSV file."""
     try:
         data = pd.read_excel(file_path)
+        
+        list_missing_values = data.isnull().sum()
+        print(list_missing_values)
+
         return data
     except FileNotFoundError:
         print("File not found. Please provide a valid file path.")
