@@ -1,5 +1,8 @@
+# Code modifications for Activity 2: Reference: https://github.com/ShefaaSaied/Dry-Bean-Classification/blob/main/Dry-Bean-Classification.ipynb
+
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn import preprocessing
 
 def load_data(file_path):
     """Load data from a CSV file."""
@@ -30,6 +33,9 @@ def analyze_data(data):
             plt.show()
         
         # Plot bar plot for the class label (string type)
+        le = preprocessing.LabelEncoder()
+        data['Class'] = le.fit_transform(data['Class'])
+        data['Class'].unique()
         class_label_counts = data['Class'].value_counts()
         class_label_counts.plot(kind='bar')
         plt.title('Class Label Distribution')
