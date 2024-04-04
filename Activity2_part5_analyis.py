@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 def load_data(file_path):
-    """Load data from a CSV file m22aie204"""
+    """Load data from a CSV file roll no m22aie204."""
     try:
         data = pd.read_excel(file_path)
         return data
