@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import openpyxl
 
 def load_data(file_path):
     """Load data from a CSV file."""
@@ -19,7 +20,7 @@ def analyze_data(data):
         # Display summary statistics
         print("Summary Statistics:")
         print(data.describe())
-
+        print(data.info())
         # Plot histograms for numeric columns
         print("Histograms:")
         for col in data.select_dtypes(include=['int', 'float']):
@@ -38,7 +39,7 @@ def analyze_data(data):
         plt.show()
 
 def main():
-    file_path = input("Enter the path to the CSV file: ")
+    file_path = input("Enter the path to the excel file: ")
     data = load_data(file_path)
     analyze_data(data)
 
