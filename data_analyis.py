@@ -37,10 +37,18 @@ def analyze_data(data):
         plt.ylabel('Count')
         plt.show()
 
+def show_missing_values(path="DryBeanDataset/Dry_Bean_Dataset.xlsx"):
+    df = pd.read_excel(path)
+    missing_values_df = pd.DataFrame(df.isnull().sum(), columns=['Missing Values'])
+    print(f"#"*50)
+    print(missing_values_df)
+    print(f"#"*50)
+
 def main():
     file_path = input("Enter the path to the CSV file: ")
     data = load_data(file_path)
     analyze_data(data)
-
+    show_missing_values(file_path)
+    
 if __name__ == "__main__":
     main()
