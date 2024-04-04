@@ -37,8 +37,16 @@ def analyze_data(data):
         plt.ylabel('Count')
         plt.show()
 
+        # Check for missing values
+        missing_values = data.isnull().sum()
+        if missing_values.any():
+            print("\nMissing Values:")
+            print(missing_values)
+        else:
+            print("\nNo missing values found.")
+
 def main():
-    file_path = input("Enter the path to the CSV file: ")
+    file_path = input("Enter the path to the Excel file: ")
     data = load_data(file_path)
     analyze_data(data)
 
