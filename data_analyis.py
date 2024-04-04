@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import LabelEncoder
 
 def load_data(file_path):
     """Load data from a CSV file."""
@@ -40,6 +41,8 @@ def analyze_data(data):
 def main():
     file_path = input("Enter the path to the CSV file: ")
     data = load_data(file_path)
+    label_encoder = LabelEncoder()
+    data['catagorical_encoded'] = label_encoder.fit_transform(data['int'])
     analyze_data(data)
 
 if __name__ == "__main__":
