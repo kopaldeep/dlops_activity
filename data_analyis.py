@@ -13,6 +13,19 @@ def load_data(file_path):
         print(f"An error occurred: {e}")
         return None
 
+def encode_categorical(data):
+    """Encode categorical columns using one-hot encoding."""
+    if data is None:
+        return None  # Return None if data is None
+    categorical_cols = data.select_dtypes(include=['object']).columns
+    if 'Class' in categorical_cols:
+        categorical_cols = categorical_cols.drop('Class')  # Exclude the target variable if it's categorical
+    if len(categorical_cols) == 0:
+        print("No categorical columns found.")
+        return data
+    encoded_data = pd.get_dummies(data, columns=categorical_cols)
+    return encoded_data
+
 def analyze_data(data):
     """Perform basic data analysis."""
     if data is not None:
@@ -40,6 +53,7 @@ def analyze_data(data):
 def main():
     file_path = input("Enter the path to the CSV file: ")
     data = load_data(file_path)
+    data = encode_categorical(data)
     analyze_data(data)
 
 if __name__ == "__main__":
