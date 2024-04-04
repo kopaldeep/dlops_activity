@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import LabelEncoder
 
 def load_data(file_path):
     """Load data from a CSV file."""
@@ -37,9 +38,21 @@ def analyze_data(data):
         plt.ylabel('Count')
         plt.show()
 
+def encode_categorical_data(data):
+    """Encode the 'Class' column using label encoding."""
+    if data is not None:
+        if 'Class' in data.columns:
+            label_encoder = LabelEncoder()
+            data['Class'] = label_encoder.fit_transform(data['Class'])
+            return data, label_encoder
+        else:
+            print("Column 'Class' not found in the DataFrame.")
+            return None, None
+
 def main():
     file_path = input("Enter the path to the CSV file: ")
     data = load_data(file_path)
+    data, label_encoder = encode_categorical_data(data)
     analyze_data(data)
 
 if __name__ == "__main__":
