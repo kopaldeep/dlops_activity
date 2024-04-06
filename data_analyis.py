@@ -19,6 +19,9 @@ def analyze_data(data):
         # Display summary statistics
         print("Summary Statistics:")
         print(data.describe())
+        #Make Modification as part assignment - List out missing value 
+        missing_value = data.isnull().sum()
+        print(missing_value)
 
         # Plot histograms for numeric columns
         print("Histograms:")
